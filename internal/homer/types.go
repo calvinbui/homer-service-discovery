@@ -3,81 +3,81 @@ package homer
 // created at commit https://github.com/bastienwirtz/homer/blob/66eace9e95d1962b437154b95e8f206d0da658ec/docs/configuration.md
 
 type Config struct {
-	Title             string    `yaml:"title"`
-	Subtitle          string    `yaml:"subtitle"`
-	Logo              string    `yaml:"logo"`
-	Header            string    `yaml:"header"`
-	Footer            string    `yaml:"footer"`
-	Columns           string    `yaml:"columns"`
-	ConnectivityCheck string    `yaml:"connectivityCheck"`
-	Stylesheet        []string  `yaml:"stylesheet"`
-	Theme             string    `yaml:"theme"`
-	Colors            Colors    `yaml:"colors"`
-	Message           Message   `yaml:"message"`
-	Links             []Link    `yaml:"links"`
-	Services          []Service `yaml:"services"`
+	Title             string    `yaml:"title,omitempty"`
+	Subtitle          string    `yaml:"subtitle,omitempty"`
+	Logo              string    `yaml:"logo,omitempty"`
+	Header            string    `yaml:"header,omitempty"`
+	Footer            string    `yaml:"footer,omitempty"`
+	Columns           string    `yaml:"columns,omitempty"`
+	ConnectivityCheck string    `yaml:"connectivityCheck,omitempty"`
+	Stylesheet        []string  `yaml:"stylesheet,omitempty"`
+	Theme             string    `yaml:"theme,omitempty"`
+	Colors            Colors    `yaml:"colors,omitempty"`
+	Message           Message   `yaml:"message,omitempty"`
+	Links             []Link    `yaml:"links,omitempty"`
+	Services          []Service `yaml:"services,omitempty"`
 }
 
 type Colors struct {
-	Light Color `yaml:"light"`
-	Dark  Color `yaml:"dark"`
+	Light Color `yaml:"light,omitempty"`
+	Dark  Color `yaml:"dark,omitempty"`
 }
 
 type Color struct {
-	HighlightPrimary   string `yaml:"highlight-primary"`
-	HighlightSecondary string `yaml:"highlight-secondary"`
-	HighlightHover     string `yaml:"highlight-hover"`
-	Background         string `yaml:"background"`
-	CardBackground     string `yaml:"card-background"`
-	Text               string `yaml:"text"`
-	TextHeader         string `yaml:"text-header"`
-	TextTitle          string `yaml:"text-title"`
-	TextSubtitle       string `yaml:"text-subtitle"`
-	CardShadow         string `yaml:"card-shadow"`
-	LinkHover          string `yaml:"link-hover"`
-	BackgroundImage    string `yaml:"background-image"`
+	HighlightPrimary   string `yaml:"highlight-primary,omitempty"`
+	HighlightSecondary string `yaml:"highlight-secondary,omitempty"`
+	HighlightHover     string `yaml:"highlight-hover,omitempty"`
+	Background         string `yaml:"background,omitempty"`
+	CardBackground     string `yaml:"card-background,omitempty"`
+	Text               string `yaml:"text,omitempty"`
+	TextHeader         string `yaml:"text-header,omitempty"`
+	TextTitle          string `yaml:"text-title,omitempty"`
+	TextSubtitle       string `yaml:"text-subtitle,omitempty"`
+	CardShadow         string `yaml:"card-shadow,omitempty"`
+	LinkHover          string `yaml:"link-hover,omitempty"`
+	BackgroundImage    string `yaml:"background-image,omitempty"`
 }
 
 type Message struct {
-	Style            string  `yaml:"style"`
-	Title            string  `yaml:"title"`
-	Icon             string  `yaml:"icon"`
-	Content          string  `yaml:"content"`
-	Url              string  `yaml:"url"`             // optional
-	Mapping          Mapping `yaml:"mapping"`         // optional
-	RefreshInternval int     `yaml:"refreshInterval"` // optional
+	Style            string  `yaml:"style,omitempty"`
+	Title            string  `yaml:"title,omitempty"`
+	Icon             string  `yaml:"icon,omitempty"`
+	Content          string  `yaml:"content,omitempty"`
+	Url              string  `yaml:"url,omitempty"`             // optional
+	Mapping          Mapping `yaml:"mapping,omitempty"`         // optional
+	RefreshInternval int     `yaml:"refreshInterval,omitempty"` // optional
 }
 
 type Mapping struct {
-	Title   string `yaml:"title"`
-	Content string `yaml:"content"`
+	Title   string `yaml:"title,omitempty"`
+	Content string `yaml:"content,omitempty"`
 }
 
 type Link struct {
-	Name   string `yaml:"name"`
-	Icon   string `yaml:"icon"`
-	Url    string `yaml:"url"`
-	Target string `yaml:"target"` // optional
+	Name   string `yaml:"name,omitempty"`
+	Icon   string `yaml:"icon,omitempty"`
+	Url    string `yaml:"url,omitempty"`
+	Target string `yaml:"target,omitempty"` // optional
 }
 
 type Service struct {
-	Name     string `yaml:"name"`
-	Icon     string `yaml:"icon"`
-	Items    []Item `yaml:"items"`
-	Position int    `yaml:"position"` // ours
+	Name     string `yaml:"name,omitempty"`
+	Icon     string `yaml:"icon,omitempty"`
+	Items    []Item `yaml:"items,omitempty"`
+	Position int    `yaml:"position,omitempty"` // ours
 }
 
 type Item struct {
-	Name       string `yaml:"name"`
-	Logo       string `yaml:"logo"`
-	Icon       string `yaml:"icon"`
-	Subtitle   string `yaml:"subtitle"`
-	Tag        string `yaml:"tag"`
-	Url        string `yaml:"url"`
-	Target     string `yaml:"target"`
-	TagStyle   string `yaml:"tagstyle"`   // optional
-	Type       string `yaml:"type"`       // optional
-	Class      string `yaml:"class"`      // optional
-	Background string `yaml:"background"` // optional
-	Position   int    `yaml:"position"`   // ours
+	Name       string `yaml:"name,omitempty"`
+	Logo       string `yaml:"logo,omitempty"`
+	Icon       string `yaml:"icon,omitempty"`
+	Subtitle   string `yaml:"subtitle,omitempty"`
+	Tag        string `yaml:"tag,omitempty"`
+	Url        string `yaml:"url,omitempty"`
+	Target     string `yaml:"target,omitempty"`
+	TagStyle   string `yaml:"tagstyle,omitempty"`   // optional
+	Type       string `yaml:"type,omitempty"`       // optional
+	Class      string `yaml:"class,omitempty"`      // optional
+	Background string `yaml:"background,omitempty"` // optional
+	Position   int    `yaml:"position,omitempty"`   // ours
 }

@@ -4,10 +4,25 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"github.com/rs/zerolog/log"
 	"gopkg.in/yaml.v3"
 )
 
-func readConfig(path string) ([]byte, error) {
+func GetConfig(path string) (*Config, error) {
+	b, err := openConfig(path)
+	if err != nil {
+		return nil, err
+	}
+
+	config, err := unmarshalConfig(b)
+	if err != nil {
+		return nil, err
+	}
+
+	return &config, nil
+}
+
+func openConfig(path string) ([]byte, error) {
 	contents, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
@@ -29,4 +44,15 @@ func unmarshalConfig(contents []byte) (Config, error) {
 	}
 
 	return config, nil
+}
+
+func ReadConfig(config Config) ([]byte, error) {
+	b, err := yaml.Marshal(config)
+	if err != nil {
+		return nil, err
+	}
+
+	log.Print("Hi")
+
+	return b, nil
 }

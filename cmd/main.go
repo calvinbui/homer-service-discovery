@@ -8,6 +8,7 @@ import (
 
 	"github.com/calvinbui/homer-docker-service-discovery/internal/config"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/docker"
+	"github.com/calvinbui/homer-docker-service-discovery/internal/homer"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/logger"
 )
 
@@ -29,6 +30,12 @@ func main() {
 	}
 	logger.Debug(fmt.Sprintf("Provider connection established with Docker %s (API %s)", serverVersion.Version, serverVersion.APIVersion))
 
+	if c, err := homer.ReadConfig(*conf.HomerConfig); err == nil {
+		logger.Debug(fmt.Sprintf("Loaded Homer config from %s:\n%s", *conf.HomerConfigPath, c))
+	} else {
+		logger.Fatal(fmt.Sprintf("Error reading config file %s", *conf.HomerConfigPath), err)
+	}
+
 	logger.Info("Listing Docker containers")
 	containers, err := docker.ListRunningContainers(nil, conf.Docker)
 	if err != nil {
@@ -43,8 +50,8 @@ func main() {
 		logger.Info(fmt.Sprintf("Inspected container %s with labels %s", parsedContainer.Name, parsedContainer.Labels))
 	}
 
+	logger.Info("Watching for Docker containers changes")
 	eventsc, errc := docker.WatchEvents(ctx, conf.Docker)
-
 	for {
 		select {
 		case event := <-eventsc:

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/calvinbui/homer-docker-service-discovery/internal/docker"
+	"github.com/calvinbui/homer-docker-service-discovery/internal/homer"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/logger"
 	"github.com/docker/docker/client"
 
@@ -14,6 +15,9 @@ type config struct {
 	Docker *client.Client
 
 	LogLevel *string `env:"LOG_LEVEL" envDefault:"Info"`
+
+	HomerConfig     *homer.Config
+	HomerConfigPath *string `env:"HOMER_CONFIG" envDefault:"./test/config.yaml"`
 }
 
 func New() (*config, error) {
@@ -32,6 +36,11 @@ func New() (*config, error) {
 	err = logger.SetLevel(conf.LogLevel)
 	if err != nil {
 		return nil, fmt.Errorf("Error setting log level: %w", err)
+	}
+
+	conf.HomerConfig, err = homer.GetConfig(*conf.HomerConfigPath)
+	if err != nil {
+		return nil, fmt.Errorf("Error getting Homer config: %w", err)
 	}
 
 	return &conf, nil
