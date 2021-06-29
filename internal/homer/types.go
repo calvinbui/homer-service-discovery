@@ -61,9 +61,10 @@ type Link struct {
 }
 
 type Service struct {
-	Name  string `yaml:"name"`
-	Icon  string `yaml:"icon"`
-	Items []Item `yaml:"items"`
+	Name     string `yaml:"name"`
+	Icon     string `yaml:"icon"`
+	Items    []Item `yaml:"items"`
+	Position int    `yaml:"position"` // ours
 }
 
 type Item struct {
@@ -78,4 +79,5 @@ type Item struct {
 	Type       string `yaml:"type"`       // optional
 	Class      string `yaml:"class"`      // optional
 	Background string `yaml:"background"` // optional
+	Position   int    `yaml:"position"`   // ours
 }
