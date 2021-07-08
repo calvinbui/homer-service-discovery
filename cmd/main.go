@@ -36,19 +36,8 @@ func main() {
 		logger.Fatal(fmt.Sprintf("Error reading config file %s", *conf.HomerConfigPath), err)
 	}
 
-	logger.Info("Listing Docker containers")
-	containers, err := docker.ListRunningContainers(nil, conf.Docker)
-	if err != nil {
-		logger.Fatal("Failed to list containers for Docker", err)
-	}
-
-	for _, container := range containers {
-		parsedContainer, err := docker.ParseContainer(ctx, conf.Docker, container)
-		if err != nil {
-			logger.Error(fmt.Sprintf("Failed to inspect container %s", container.Names), err)
-		}
-		logger.Info(fmt.Sprintf("Inspected container %s with labels %s", parsedContainer.Name, parsedContainer.Labels))
-	}
+	logger.Info("Building Homer config")
+	createConfig(ctx, *conf)
 
 	logger.Info("Watching for Docker containers changes")
 	eventsc, errc := docker.WatchEvents(ctx, conf.Docker)
@@ -56,7 +45,9 @@ func main() {
 		select {
 		case event := <-eventsc:
 			if event.Action == "create" || event.Action == "destroy" {
-				logger.Info("Something happened: " + event.Action)
+				logger.Info("A" + event.Action + " event occurred")
+				logger.Info("Building Homer config")
+				createConfig(ctx, *conf)
 			}
 		case err := <-errc:
 			if errors.Is(err, io.EOF) {
@@ -66,4 +57,36 @@ func main() {
 			return
 		}
 	}
+}
+
+func createConfig(ctx context.Context, conf config.Config) error {
+	logger.Info("Getting Docker containers")
+	containers, err := docker.ListRunningContainers(nil, conf.Docker)
+	if err != nil {
+		logger.Fatal("Failed to list containers for Docker", err)
+	}
+
+	var parsedContainers []docker.Container
+	for _, container := range containers {
+		parsedContainer, err := docker.ParseContainer(ctx, conf.Docker, container)
+		if err != nil {
+			logger.Error(fmt.Sprintf("Failed to inspect container %s", container.Names), err)
+		}
+		logger.Debug(fmt.Sprintf("Inspected container %s with labels %s", parsedContainer.Name, parsedContainer.Labels))
+		parsedContainers = append(parsedContainers, parsedContainer)
+	}
+
+	logger.Info("Building Homer config")
+	c, err := homer.BuildConfig(*conf.HomerConfig, parsedContainers)
+	if err != nil {
+		logger.Fatal("Error building Homer config", err)
+	}
+
+	logger.Info("Updating Homer config")
+	err = homer.PutConfig(c, *conf.HomerConfigPath, "777")
+	if err != nil {
+		logger.Fatal("Error updating Homer config file", err)
+	}
+
+	return nil
 }

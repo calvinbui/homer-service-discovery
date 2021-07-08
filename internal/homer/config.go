@@ -2,9 +2,10 @@ package homer
 
 import (
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 
-	"github.com/rs/zerolog/log"
+	"github.com/calvinbui/homer-docker-service-discovery/internal/helpers"
 	"gopkg.in/yaml.v3"
 )
 
@@ -52,7 +53,24 @@ func ReadConfig(config Config) ([]byte, error) {
 		return nil, err
 	}
 
-	log.Print("Hi")
-
 	return b, nil
+}
+
+func PutConfig(config Config, path string, permissions string) error {
+	b, err := yaml.Marshal(config)
+	if err != nil {
+		return err
+	}
+
+	filemode, err := helpers.StringToFileMode(permissions)
+	if err != nil {
+		return err
+	}
+
+	err = ioutil.WriteFile(path, b, fs.FileMode(filemode))
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

@@ -11,7 +11,7 @@ import (
 	"github.com/caarlos0/env/v6"
 )
 
-type config struct {
+type Config struct {
 	Docker *client.Client
 
 	LogLevel *string `env:"LOG_LEVEL" envDefault:"Info"`
@@ -20,9 +20,9 @@ type config struct {
 	HomerConfigPath *string `env:"HOMER_CONFIG" envDefault:"./test/config.yaml"`
 }
 
-func New() (*config, error) {
+func New() (*Config, error) {
 	var err error
-	conf := config{}
+	conf := Config{}
 
 	if err := env.Parse(&conf); err != nil {
 		return nil, fmt.Errorf("Error parsing config from env: %+v\n", err)
