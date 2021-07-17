@@ -17,7 +17,10 @@ type Config struct {
 	LogLevel *string `env:"LOG_LEVEL" envDefault:"Info"`
 
 	HomerConfig     *homer.Config
-	HomerConfigPath *string `env:"HOMER_CONFIG" envDefault:"./test/config.yaml"`
+	HomerConfigPath *string `env:"HOMER_CONFIG" envDefault:"./test/homer.yml"`
+
+	HomerBaseConfig     *homer.Config
+	HomerBaseConfigPath *string `env:"HOMER_BASE_CONFIG" envDefault:"./test/base.yml"`
 }
 
 func New() (*Config, error) {
@@ -38,7 +41,7 @@ func New() (*Config, error) {
 		return nil, fmt.Errorf("Error setting log level: %w", err)
 	}
 
-	conf.HomerConfig, err = homer.GetConfig(*conf.HomerConfigPath)
+	conf.HomerBaseConfig, err = homer.GetConfig(*conf.HomerBaseConfigPath)
 	if err != nil {
 		return nil, fmt.Errorf("Error getting Homer config: %w", err)
 	}

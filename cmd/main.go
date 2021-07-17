@@ -30,10 +30,10 @@ func main() {
 	}
 	logger.Debug(fmt.Sprintf("Provider connection established with Docker %s (API %s)", serverVersion.Version, serverVersion.APIVersion))
 
-	if c, err := homer.ReadConfig(*conf.HomerConfig); err == nil {
-		logger.Debug(fmt.Sprintf("Loaded Homer config from %s:\n%s", *conf.HomerConfigPath, c))
+	if c, err := homer.ReadConfig(*conf.HomerBaseConfig); err == nil {
+		logger.Debug(fmt.Sprintf("Loaded Homer config from %s:\n%s", *conf.HomerBaseConfigPath, c))
 	} else {
-		logger.Fatal(fmt.Sprintf("Error reading config file %s", *conf.HomerConfigPath), err)
+		logger.Fatal(fmt.Sprintf("Error reading config file %s", *conf.HomerBaseConfigPath), err)
 	}
 
 	logger.Info("Building Homer config")
@@ -77,7 +77,7 @@ func createConfig(ctx context.Context, conf config.Config) error {
 	}
 
 	logger.Info("Building Homer config")
-	c, err := homer.BuildConfig(*conf.HomerConfig, parsedContainers)
+	c, err := homer.BuildConfig(*conf.HomerBaseConfig, parsedContainers)
 	if err != nil {
 		logger.Fatal("Error building Homer config", err)
 	}

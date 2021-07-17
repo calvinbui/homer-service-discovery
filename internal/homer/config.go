@@ -2,10 +2,10 @@ package homer
 
 import (
 	"fmt"
-	"io/fs"
 	"io/ioutil"
+	"os"
+	"syscall"
 
-	"github.com/calvinbui/homer-docker-service-discovery/internal/helpers"
 	"gopkg.in/yaml.v3"
 )
 
@@ -17,7 +17,7 @@ func GetConfig(path string) (*Config, error) {
 
 	config, err := unmarshalConfig(b)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Error unmarshalling config file: %w", err)
 	}
 
 	return &config, nil
@@ -44,6 +44,11 @@ func unmarshalConfig(contents []byte) (Config, error) {
 		return Config{}, err
 	}
 
+	// the footer can be disabled by changing it from a 'string' to a 'bool'
+	if config.Footer == "false" {
+		config.Footer = false
+	}
+
 	return config, nil
 }
 
@@ -59,17 +64,25 @@ func ReadConfig(config Config) ([]byte, error) {
 func PutConfig(config Config, path string, permissions string) error {
 	b, err := yaml.Marshal(config)
 	if err != nil {
-		return err
+		return fmt.Errorf("Error marshalling data into YAML: %w", err)
 	}
 
-	filemode, err := helpers.StringToFileMode(permissions)
+	fileStats, err := os.Stat(path)
 	if err != nil {
-		return err
+		return fmt.Errorf("Error getting stats for config file '%s': %w", path, err)
 	}
 
-	err = ioutil.WriteFile(path, b, fs.FileMode(filemode))
+	err = ioutil.WriteFile(path, b, fileStats.Mode())
 	if err != nil {
-		return err
+		return fmt.Errorf("Error writing data to config file '%s'", path)
+	}
+
+	fileSysStats := fileStats.Sys().(*syscall.Stat_t)
+	uid := int(fileSysStats.Uid)
+	gid := int(fileSysStats.Gid)
+	err = os.Chown(path, uid, gid)
+	if err != nil {
+		return fmt.Errorf("Error chowning config '%s' with user '%v' and group '%v': %w", path, uid, gid, err)
 	}
 
 	return nil

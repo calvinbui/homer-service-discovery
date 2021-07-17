@@ -1,0 +1,31 @@
+# for development
+
+version: "3.9"
+
+services:
+  homer:
+    image: b4bz/homer:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: ./test/homer.yml
+        target: /www/assets/config.yml
+  hsd:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      LOG_LEVEL: Debug
+      HOMER_BASE_CONFIG: /base.yml
+      HOMER_CONFIG: /homer.yml
+    volumes:
+      - type: bind
+        source: ./test/base.yml
+        target: /base.yml
+      - type: bind
+        source: ./test/homer.yml
+        target:  /homer.yml
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock

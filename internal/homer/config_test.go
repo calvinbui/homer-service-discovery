@@ -59,11 +59,11 @@ func Test_unmarshalConfig(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := unmarshalConfig(tt.args.contents)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("unmarshalConfig() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("unmarshalConfig() error = %+v, wantErr %+v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("unmarshalConfig() = %v, want %v", got, tt.want)
+				t.Errorf("unmarshalConfig() =\n\n%+v\n\nwant\n\n%+v", got, tt.want)
 			}
 		})
 	}
@@ -160,7 +160,7 @@ var fullConfig = Config{
 	Subtitle: "Homer",
 	Logo:     "assets/logo.png",
 
-	Header: "true",
+	Header: true,
 	Footer: "<p>Created with <span class=\"has-text-danger\">❤️</span> with <a href=\"https://bulma.io/\">bulma</a>, <a href=\"https://vuejs.org/\">vuejs</a> & <a href=\"https://fontawesome.com/\">font awesome</a> // Fork me on <a href=\"https://github.com/bastienwirtz/homer\"><i class=\"fab fa-github-alt\"></i></a></p>",
 
 	Columns:           "3",

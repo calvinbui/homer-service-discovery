@@ -3,19 +3,19 @@ package homer
 // created at commit https://github.com/bastienwirtz/homer/blob/66eace9e95d1962b437154b95e8f206d0da658ec/docs/configuration.md
 
 type Config struct {
-	Title             string    `yaml:"title,omitempty"`
-	Subtitle          string    `yaml:"subtitle,omitempty"`
-	Logo              string    `yaml:"logo,omitempty"`
-	Header            string    `yaml:"header,omitempty"`
-	Footer            string    `yaml:"footer,omitempty"`
-	Columns           string    `yaml:"columns,omitempty"`
-	ConnectivityCheck string    `yaml:"connectivityCheck,omitempty"`
-	Stylesheet        []string  `yaml:"stylesheet,omitempty"`
-	Theme             string    `yaml:"theme,omitempty"`
-	Colors            Colors    `yaml:"colors,omitempty"`
-	Message           Message   `yaml:"message,omitempty"`
-	Links             []Link    `yaml:"links,omitempty"`
-	Services          []Service `yaml:"services,omitempty"`
+	Title             string      `yaml:"title,omitempty"`
+	Subtitle          string      `yaml:"subtitle,omitempty"`
+	Logo              string      `yaml:"logo,omitempty"`
+	Header            bool        `yaml:"header,omitempty"`
+	Footer            interface{} `yaml:"footer,omitempty"`
+	Columns           string      `yaml:"columns,omitempty"`
+	ConnectivityCheck string      `yaml:"connectivityCheck,omitempty"`
+	Stylesheet        []string    `yaml:"stylesheet,omitempty"`
+	Theme             string      `yaml:"theme,omitempty"`
+	Colors            Colors      `yaml:"colors,omitempty"`
+	Message           Message     `yaml:"message,omitempty"`
+	Links             []Link      `yaml:"links,omitempty"`
+	Services          []Service   `yaml:"services,omitempty"`
 }
 
 type Colors struct {

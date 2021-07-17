@@ -1,0 +1,46 @@
+title: Services
+subtitle: All my stuff
+logo: logo.png
+footer: hello
+connectivityCheck: "false"
+services:
+    - name: Download
+      icon: fas fa-cloud-download-alt
+      items:
+        - name: NZBGet
+          logo: assets/custom/nzbget.png
+          subtitle: Downloads Files From Usenet
+          url: https://nzbget.example.com
+          position: 1
+        - name: qBittorrent
+          logo: assets/custom/qbittorrent.svg
+          subtitle: Download Torrents
+          url: https://qbittorrent.example.com
+        - name: JDownloader
+          logo: assets/custom/jdownloader.png
+          subtitle: Download Management Tool
+          url: https://jdownloader.example.com
+    - name: Collaboration
+      icon: fas fa-people-carry
+      items:
+        - name: Nextcloud
+          logo: assets/custom/nextcloud.svg
+          subtitle: File Sharing and Communication Platform
+          url: https://nextcloud.example.com
+        - name: Mattermost
+          logo: assets/custom/mattermost.png
+          subtitle: Online Chat
+          url: https://mattermost.example.com
+        - name: JIRA
+          logo: assets/custom/jira.svg
+          subtitle: Issue Tracking
+          url: https://jira.atlassian.net
+    - name: Sharing
+      icon: fas fa-people-arrows
+      items:
+        - name: Plex
+          logo: assets/custom/plex.png
+          subtitle: Media Server
+          url: https://plex.example.com
+    - name: Tools
+      icon: fas fa-tools
