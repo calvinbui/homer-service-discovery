@@ -33,7 +33,7 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    need:
+    needs:
       - test
     if: github.event_name == 'release' && github.event.action == 'created'
     steps:
