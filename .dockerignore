@@ -1,4 +1,6 @@
 Dockerfile
+docker-compose.yml
+
 README.md
 
 .gitignore
@@ -6,3 +8,5 @@ README.md
 
 **/*_test.go
 test/
+
+.vscode

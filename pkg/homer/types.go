@@ -64,7 +64,7 @@ type Service struct {
 	Name     string `yaml:"name,omitempty"`
 	Icon     string `yaml:"icon,omitempty"`
 	Items    []Item `yaml:"items,omitempty"`
-	Position int    `yaml:"position,omitempty"` // ours
+	Priority int    `yaml:"priority,omitempty"` // ours
 }
 
 type Item struct {
@@ -75,9 +75,9 @@ type Item struct {
 	Tag        string `yaml:"tag,omitempty"`
 	Url        string `yaml:"url,omitempty"`
 	Target     string `yaml:"target,omitempty"`
-	TagStyle   string `yaml:"tagstyle,omitempty"`   // optional
+	Tagstyle   string `yaml:"tagstyle,omitempty"`   // optional
 	Type       string `yaml:"type,omitempty"`       // optional
 	Class      string `yaml:"class,omitempty"`      // optional
 	Background string `yaml:"background,omitempty"` // optional
-	Position   int    `yaml:"position,omitempty"`   // ours
+	Priority   int    `yaml:"priority,omitempty"`   // ours
 }

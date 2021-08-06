@@ -243,7 +243,7 @@ var fullConfig = Config{
 					Logo:     "assets/tools/sample2.png",
 					Subtitle: "Another application",
 					Tag:      "app",
-					TagStyle: "is-success",
+					Tagstyle: "is-success",
 					Url:      "#",
 				},
 			},

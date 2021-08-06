@@ -13,8 +13,8 @@ func Init() {
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 }
 
-func SetLevel(level *string) error {
-	l, err := zerolog.ParseLevel(strings.ToLower(*level))
+func SetLevel(level string) error {
+	l, err := zerolog.ParseLevel(strings.ToLower(level))
 	if err != nil {
 		return err
 	}
@@ -26,6 +26,10 @@ func SetLevel(level *string) error {
 
 func formatMsgWithErr(msg string, err error) string {
 	return msg + ": " + err.Error()
+}
+
+func Trace(msg string) {
+	log.Debug().Msg(msg)
 }
 
 func Debug(msg string) {

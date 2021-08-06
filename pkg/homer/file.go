@@ -9,18 +9,18 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func GetConfig(path string) (*Config, error) {
+func GetConfig(path string) (Config, error) {
 	b, err := openConfig(path)
 	if err != nil {
-		return nil, err
+		return Config{}, err
 	}
 
 	config, err := unmarshalConfig(b)
 	if err != nil {
-		return nil, fmt.Errorf("Error unmarshalling config file: %w", err)
+		return Config{}, fmt.Errorf("Error unmarshalling config file: %w", err)
 	}
 
-	return &config, nil
+	return config, nil
 }
 
 func openConfig(path string) ([]byte, error) {
@@ -50,15 +50,6 @@ func unmarshalConfig(contents []byte) (Config, error) {
 	}
 
 	return config, nil
-}
-
-func ReadConfig(config Config) ([]byte, error) {
-	b, err := yaml.Marshal(config)
-	if err != nil {
-		return nil, err
-	}
-
-	return b, nil
 }
 
 func PutConfig(config Config, path string, permissions string) error {
