@@ -106,8 +106,11 @@ func toIntOrZero(v string) int {
 }
 
 // need a deep copy because of nested slices in the struct
-func (c Config) DeepCopy() Config {
+func (c Config) DeepCopy() (Config, error) {
 	deepCopy := Config{}
-	copier.CopyWithOption(&deepCopy, &c, copier.Option{DeepCopy: true})
-	return deepCopy
+	err := copier.CopyWithOption(&deepCopy, &c, copier.Option{DeepCopy: true})
+	if err != nil {
+		return Config{}, err
+	}
+	return deepCopy, nil
 }

@@ -61,7 +61,7 @@ func main() {
 
 func generateConfig(ctx context.Context, conf config.Config) error {
 	logger.Debug("Getting Docker containers")
-	containers, err := docker.ListRunningContainers(nil, conf.Docker)
+	containers, err := docker.ListRunningContainers(ctx, conf.Docker)
 	if err != nil {
 		logger.Fatal("Failed to list containers for Docker", err)
 	}
@@ -76,7 +76,11 @@ func generateConfig(ctx context.Context, conf config.Config) error {
 	}
 
 	logger.Debug("Generating config")
-	generatedConfig, err := homer.BuildConfig(conf.HomerBaseConfig.DeepCopy(), parsedContainers)
+	baseConfig, err := conf.HomerBaseConfig.DeepCopy()
+	if err != nil {
+		logger.Fatal("Error creating a deep copy of the base config", err)
+	}
+	generatedConfig, err := homer.BuildConfig(baseConfig, parsedContainers)
 	if err != nil {
 		logger.Fatal("Error building Homer config", err)
 	}
