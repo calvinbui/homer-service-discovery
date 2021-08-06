@@ -1,0 +1,108 @@
+---
+title: Services
+subtitle: All my stuff
+logo: logo.png
+
+header: false
+footer: false
+connectivityCheck: false
+
+services:
+  - name: Hats
+    icon: fas fa-hat-wizard
+    items:
+      - name: Cowboy Side
+        icon: fas fa-hat-cowboy-side
+        subtitle: Thanks to EconoPublish for sponsoring this icon!
+        url: https://fontawesome.com/v5.15/icons/hat-cowboy-side?style=solid
+        priority: 5
+      - name: Cowboy
+        icon: fas fa-hat-cowboy
+        url: https://fontawesome.com/v5.15/icons/hat-cowboy?style=solid
+        priority: 3
+      - name: Hard
+        icon: fas fa-hard-hat
+        subtitle: Thanks to the community for voting this icon into Font Awesome!
+        url: https://fontawesome.com/v5.15/icons/hard-hat?style=solid
+        priority: 2
+      - name: Red Hat
+        icon: fab fa-redhat
+        subtitle: Thanks to the community for voting this icon into Font Awesome!
+        url: https://fontawesome.com/v5.15/icons/redhat?style=brands
+        priority: 1
+
+  - name: Planes
+    icon: fas fa-plane
+    items:
+      - name: Slash
+        icon: fas fa-plane-slash
+        url: https://fontawesome.com/v5.15/icons/plane-slash?style=solid
+        priority: 120
+      - name: Departure
+        icon: fas fa-plane-departure
+        url: https://fontawesome.com/v5.15/icons/plane-departure?style=solid
+        priority: 100
+      - name: Arrival
+        icon: fas fa-plane-arrival
+        url: https://fontawesome.com/v5.15/icons/plane-arrival?style=solid
+        priority: 50
+      - name: Paper
+        icon: far fa-paper-plane
+        url: https://fontawesome.com/v5.15/icons/paper-plane?style=regular
+        priority: 30
+      - name: Fighter Jet
+        icon: fas fa-fighter-jet
+        url: https://fontawesome.com/v5.15/icons/fighter-jet?style=solid
+        priority: 10
+
+  - name: Weather
+    icon: fas fa-cloud
+    items:
+      - name: Bolt
+        icon: fas fa-bolt
+        url: https://fontawesome.com/v5.15/icons/bolt?style=solid
+        priority: 2
+      - name: Wind
+        icon: fas fa-wind
+        url: https://fontawesome.com/v5.15/icons/wind?style=solid
+        priority: 4
+      - name: Smog
+        icon: fas fa-smog
+        url: https://fontawesome.com/v5.15/icons/smog?style=solid
+        priority: 6
+      - name: Sun
+        icon: fas fa-sun
+        url: https://fontawesome.com/v5.15/icons/sun?style=solid
+        priority: 8
+      - name: Poo Storm
+        icon: fas fa-poo-storm
+        url: https://fontawesome.com/v5.15/icons/poo-storm?style=solid
+        priority: 10
+      - name: Cloud Showers Heavy
+        icon: fas fa-cloud-showers-heavy
+        url: https://fontawesome.com/v5.15/icons/cloud-showers-heavy?style=solid
+        priority: 20
+
+  - name: Numbers
+    icon: fas fa-list-ol
+    items:
+      - name: 4
+        icon: fas fa-dice-four
+        url: https://fontawesome.com/v5.15/icons/dice-four?style=solid
+        priority: 4
+      - name: 1
+        icon: far fa-money-bill-alt
+        url: https://fontawesome.com/v5.15/icons/money-bill-alt?style=regular
+        priority: 1
+      - name: 5
+        icon: fab fa-html5
+        url: https://fontawesome.com/v5.15/icons/html5?style=brands
+        priority: 5
+      - name: 3
+        icon: fab fa-css3
+        url: https://fontawesome.com/v5.15/icons/css3?style=brands
+        priority: 3
+      - name: 2
+        icon: far fa-hand-peace
+        url: https://fontawesome.com/v5.15/icons/hand-peace?style=regular
+        priority: 2

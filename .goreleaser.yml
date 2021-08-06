@@ -1,0 +1,62 @@
+---
+
+dockers:
+  - image_templates:
+      - "calvinbui/homer-service-discovery:{{ .Version }}-amd64"
+      - "calvinbui/homer-service-discovery:latest-amd64"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}-amd64"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-amd64"
+    goos: linux
+    goarch: amd64
+    dockerfile: Dockerfile
+
+  - image_templates:
+      - "calvinbui/homer-service-discovery:{{ .Version }}-arm64v8"
+      - "calvinbui/homer-service-discovery:latest-arm64v8
+      - "calvinbui/homer-service-discovery:v{{ .Major }}-arm64v8"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-arm64v8"
+    goos: linux
+    goarch: arm64
+    dockerfile: Dockerfile
+
+  - image_templates:
+      - "calvinbui/homer-service-discovery:{{ .Version }}-arm"
+      - "calvinbui/homer-service-discovery:latest-arm"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}-arm"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-arm"
+    goos: linux
+    goarch: arm
+    goarm: 7
+    dockerfile: Dockerfile
+
+docker_manifests:
+  - name_template: "calvinbui/homer-service-discovery:{{ .Version }}"
+    image_templates:
+      - "calvinbui/homer-service-discovery:{{ .Version }}-amd64"
+      - "calvinbui/homer-service-discovery:{{ .Version }}-arm64v8"
+      - "calvinbui/homer-service-discovery:{{ .Version }}-arm"
+
+  - name_template: calvinbui/homer-service-discovery:latest
+    image_templates:
+      - "calvinbui/homer-service-discovery:latest-amd64"
+      - "calvinbui/homer-service-discovery:latest-arm64v8"
+      - "calvinbui/homer-service-discovery:latest-arm"
+
+  - name_template: "calvinbui/homer-service-discovery:v{{ .Major }}"
+    image_templates:
+      - "calvinbui/homer-service-discovery:v{{ .Major }}-amd64"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}-arm64v8"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}-arm"
+
+  - name_template: "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}"
+    image_templates:
+      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-amd64"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-arm64v8"
+      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-arm"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'

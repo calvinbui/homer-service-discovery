@@ -1,0 +1,53 @@
+---
+
+version: "3.9"
+
+services:
+  hsd:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      LOG_LEVEL: Debug
+      HOMER_BASE_CONFIG: /base.yml
+      HOMER_CONFIG: /homer.yml
+    volumes:
+      - type: bind
+        source: ./test/base.yml
+        target: /base.yml
+      - type: bind
+        source: ./test/homer.yml
+        target:  /homer.yml
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+
+  homer:
+    image: b4bz/homer:latest
+    ports:
+      - 8080:8080
+    volumes:
+      - type: bind
+        source: ./test/homer.yml
+        target: /www/assets/config.yml
+    logging:
+      driver: none
+    stop_grace_period: 1s
+
+  http-echo:
+    image: hashicorp/http-echo
+    ports:
+      - 5678:5678
+    command:
+      - -text="Be yourself; everyone else is already taken"
+    labels:
+      homer.enable: "true"
+      homer.service: Planes
+      homer.name: Quotes
+      homer.icon: fas fa-comment-dots
+      homer.subtitle: http-echo server
+      homer.url: http://localhost:5678
+      homer.priority: 35
+    logging:
+      driver: none
+    stop_grace_period: 1s

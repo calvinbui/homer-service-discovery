@@ -1,0 +1,12 @@
+Dockerfile
+docker-compose.yml
+
+README.md
+
+.gitignore
+.dockerignore
+
+**/*_test.go
+test/
+
+.vscode

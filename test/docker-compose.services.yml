@@ -1,0 +1,43 @@
+---
+
+version: "3.9"
+
+services:
+  s1:
+    image: hashicorp/http-echo
+    command:
+      - -text="If you tell the truth, you don't have to remember anything"
+    labels:
+      homer.enable: "true"
+      homer.service: Planes
+      homer.name: Quotes1
+      homer.icon: fas fa-comment-dots
+      homer.subtitle: http-echo server
+      homer.url: http://localhost:5678
+    stop_grace_period: 1s
+
+  s2:
+    image: hashicorp/http-echo
+    command:
+      - -text="Always forgive your enemies; nothing annoys them so much"
+    labels:
+      homer.enable: "true"
+      homer.service: Planes
+      homer.name: Quotes2
+      homer.icon: fas fa-comment-dots
+      homer.subtitle: http-echo server
+      homer.url: http://localhost:5678
+    stop_grace_period: 1s
+
+  s3:
+    image: hashicorp/http-echo
+    command:
+      - -text="Be the change that you wish to see in the world"
+    labels:
+      homer.enable: "true"
+      homer.service: Planes
+      homer.name: Quotes3
+      homer.icon: fas fa-comment-dots
+      homer.subtitle: http-echo server
+      homer.url: http://localhost:5678
+    stop_grace_period: 1s
