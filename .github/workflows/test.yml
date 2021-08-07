@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: ⚙️ Get Go version
-      - run: echo go_version="$(cat Dockerfile | grep 'FROM golang:' | grep -o -P '(?<=golang:).*(?=-alpine)')" >> $GITHUB_ENV
+        run: echo go_version="$(cat Dockerfile | grep 'FROM golang:' | grep -o -P '(?<=golang:).*(?=-alpine)')" >> $GITHUB_ENV
 
       - name: 🥽 Setup Go
         uses: actions/setup-go@v2
