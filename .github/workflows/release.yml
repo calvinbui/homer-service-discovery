@@ -21,7 +21,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: echo go_version="$(cat Dockerfile.compose | grep 'FROM golang:' | grep -o -P '(?<=golang:).*(?=-alpine)')" >> $GITHUB_ENV
+      - run: echo go_version="$(cat Dockerfile | grep 'FROM golang:' | grep -o -P '(?<=golang:).*(?=-alpine)')" >> $GITHUB_ENV
 
       - uses: actions/setup-go@v2
         with:
