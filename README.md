@@ -8,6 +8,7 @@ Using Docker container labels for service discovery is inspired by the same appr
 - Generates Homer config using container labels
 - Watches for container changes
 - Sort items by priority
+- Multi-arch
 
 ## Usage
 
@@ -53,7 +54,7 @@ Start this tool while:
 - mounting the base config
 - mounting homer's config
 - mounting the Docker socket
-- using environment variables to provide theor mountpoints.
+- using environment variables to provide their mountpoints.
 
 ```sh
 docker run -d \
