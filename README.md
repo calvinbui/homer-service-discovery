@@ -43,8 +43,8 @@ services:
 
 Start Homer following [its instructions](https://github.com/bastienwirtz/homer/blob/main/README.md) to mount the `/www/assets` directory. This is where the `config.yaml` file resides.
 
-```sh
-docker run -d \
+```console
+$ docker run -d \
   -p 8080:8080 \
   -v /folder1/homer/:/www/assets \
   b4bz/homer:latest
@@ -56,8 +56,8 @@ Start this tool while:
 - mounting the Docker socket
 - using environment variables to provide their mountpoints.
 
-```sh
-docker run -d \
+```console
+$ docker run -d \
   -v /homer/config.yml:/config.yml \
   -v /sd/base.yml:/base.yml \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
@@ -70,8 +70,8 @@ You can visit your Homer Dashboard to see the initial generated config (remember
 
 Start adding labels to your containers to have this tool pick them up. For example, the following command will regenerate the config and add the `http-echo` service to the `Numbers` service.
 
-```
-docker run -d \
+```console
+$ docker run -d \
   -p 5678:5678 \
   -l homer.enable=true \
   -l homer.service=Numbers \
