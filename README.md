@@ -108,8 +108,8 @@ The full list of labels are:
 
 ## Environment Variables
 
-| Key | Description |
-| :- | :- |
-| LOG_LEVEL | The level of log verbosity |
-| HOMER_BASE_CONFIG | Where the base config is located |
-| HOMER_CONFIG | Where the final config is located |
+| Key | Description | Default |
+| :- | :- | :- |
+| `LOG_LEVEL` | The level of log verbosity | `Info` |
+| `HOMER_BASE_CONFIG` | Where the base config is located | `/base.yml` |
+| `HOMER_CONFIG` | Where the Homer config is located | `/config.yml` |
