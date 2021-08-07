@@ -58,11 +58,9 @@ Start this tool while:
 
 ```sh
 docker run -d \
-  -v /folder1/homer/:/config.yml \
-  -v /yetAnotherFolder/base.yml:/base.yml \
+  -v /homer/config.yml:/config.yml \
+  -v /sd/base.yml:/base.yml \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  -e HOMER_CONFIG=/config.yml \
-  -e HOMER_BASE_CONFIG=/base.yml \
   ghcr.io/calvinbui/homer-service-discovery
 ```
 
