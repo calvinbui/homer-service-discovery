@@ -6,7 +6,7 @@ services:
   hsd:
     build:
       context: .
-      dockerfile: Dockerfile.compose
+      dockerfile: Dockerfile
     environment:
       LOG_LEVEL: Debug
       HOMER_BASE_CONFIG: /base.yml

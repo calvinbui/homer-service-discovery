@@ -8,6 +8,7 @@ Using Docker container labels for service discovery is inspired by the same appr
 - Generates Homer config using container labels
 - Watches for container changes
 - Sort items by priority
+- Multi-arch
 
 ## Usage
 
@@ -42,8 +43,8 @@ services:
 
 Start Homer following [its instructions](https://github.com/bastienwirtz/homer/blob/main/README.md) to mount the `/www/assets` directory. This is where the `config.yaml` file resides.
 
-```sh
-docker run -d \
+```console
+$ docker run -d \
   -p 8080:8080 \
   -v /folder1/homer/:/www/assets \
   b4bz/homer:latest
@@ -53,15 +54,13 @@ Start this tool while:
 - mounting the base config
 - mounting homer's config
 - mounting the Docker socket
-- using environment variables to provide theor mountpoints.
+- using environment variables to provide their mountpoints.
 
-```sh
-docker run -d \
-  -v /folder1/homer/:/config.yml \
-  -v /yetAnotherFolder/base.yml:/base.yml \
+```console
+$ docker run -d \
+  -v /homer/config.yml:/config.yml \
+  -v /sd/base.yml:/base.yml \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  -e HOMER_CONFIG=/config.yml \
-  -e HOMER_BASE_CONFIG=/base.yml \
   ghcr.io/calvinbui/homer-service-discovery
 ```
 
@@ -71,8 +70,8 @@ You can visit your Homer Dashboard to see the initial generated config (remember
 
 Start adding labels to your containers to have this tool pick them up. For example, the following command will regenerate the config and add the `http-echo` service to the `Numbers` service.
 
-```
-docker run -d \
+```console
+$ docker run -d \
   -p 5678:5678 \
   -l homer.enable=true \
   -l homer.service=Numbers \
@@ -108,8 +107,8 @@ The full list of labels are:
 
 ## Environment Variables
 
-| Key | Description |
-| :- | :- |
-| LOG_LEVEL | The level of log verbosity |
-| HOMER_BASE_CONFIG | Where the base config is located |
-| HOMER_CONFIG | Where the final config is located |
+| Key | Description | Default |
+| :- | :- | :- |
+| `LOG_LEVEL` | The level of log verbosity | `Info` |
+| `HOMER_BASE_CONFIG` | Where the base config is located | `/base.yml` |
+| `HOMER_CONFIG` | Where the Homer config is located | `/config.yml` |
