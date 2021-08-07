@@ -1,58 +1,102 @@
 ---
 
+project_name: homer-service-discovery
+
+release:
+  github:
+    owner: calvinbui
+    name: homer-service-discovery
+
+builds:
+  - main: ./cmd/main.go
+    binary: main
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm
+      - arm64
+    goarm:
+      - 7
+
 dockers:
   - image_templates:
-      - "calvinbui/homer-service-discovery:{{ .Version }}-amd64"
-      - "calvinbui/homer-service-discovery:latest-amd64"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}-amd64"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-amd64"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}-amd64"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:latest-amd64"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}-amd64"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64"
     goos: linux
     goarch: amd64
-    dockerfile: Dockerfile
+    use: buildx
+    dockerfile: Dockerfile.goreleaser
+    build_flag_templates:
+      - "--platform=linux/amd64"
 
   - image_templates:
-      - "calvinbui/homer-service-discovery:{{ .Version }}-arm64v8"
-      - "calvinbui/homer-service-discovery:latest-arm64v8
-      - "calvinbui/homer-service-discovery:v{{ .Major }}-arm64v8"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-arm64v8"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}-arm64v8"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:latest-arm64v8"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}-arm64v8"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm64v8"
     goos: linux
     goarch: arm64
-    dockerfile: Dockerfile
+    use: buildx
+    dockerfile: Dockerfile.goreleaser
+    build_flag_templates:
+      - "--platform=linux/arm64/v8"
 
   - image_templates:
-      - "calvinbui/homer-service-discovery:{{ .Version }}-arm"
-      - "calvinbui/homer-service-discovery:latest-arm"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}-arm"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-arm"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}-arm32v7"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:latest-arm32v7"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}-arm32v7"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm32v7"
     goos: linux
     goarch: arm
     goarm: 7
-    dockerfile: Dockerfile
+    use: buildx
+    dockerfile: Dockerfile.goreleaser
+    build_flag_templates:
+      - "--platform=linux/arm"
 
 docker_manifests:
-  - name_template: "calvinbui/homer-service-discovery:{{ .Version }}"
+  - name_template: "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}"
     image_templates:
-      - "calvinbui/homer-service-discovery:{{ .Version }}-amd64"
-      - "calvinbui/homer-service-discovery:{{ .Version }}-arm64v8"
-      - "calvinbui/homer-service-discovery:{{ .Version }}-arm"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}-amd64"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}-arm64v8"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}-arm32v7"
 
-  - name_template: calvinbui/homer-service-discovery:latest
+  - name_template: "ghcr.io/calvinbui/{{ .ProjectName }}:latest"
     image_templates:
-      - "calvinbui/homer-service-discovery:latest-amd64"
-      - "calvinbui/homer-service-discovery:latest-arm64v8"
-      - "calvinbui/homer-service-discovery:latest-arm"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:latest-amd64"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:latest-arm64v8"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:latest-arm32v7"
 
-  - name_template: "calvinbui/homer-service-discovery:v{{ .Major }}"
+  - name_template: "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}"
     image_templates:
-      - "calvinbui/homer-service-discovery:v{{ .Major }}-amd64"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}-arm64v8"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}-arm"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}-amd64"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}-arm64v8"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}-arm32v7"
 
-  - name_template: "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}"
+  - name_template: "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}"
     image_templates:
-      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-amd64"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-arm64v8"
-      - "calvinbui/homer-service-discovery:v{{ .Major }}.{{ .Minor }}-arm"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm64v8"
+      - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm32v7"
+
+archives:
+  - replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ .Tag }}-next"
 
 changelog:
   sort: asc
