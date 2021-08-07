@@ -12,24 +12,39 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v2
 
+      - name: ⚙️ Get Go version
       - run: echo go_version="$(cat Dockerfile | grep 'FROM golang:' | grep -o -P '(?<=golang:).*(?=-alpine)')" >> $GITHUB_ENV
 
-      - uses: actions/setup-go@v2
+      - name: 🥽 Setup Go
+        uses: actions/setup-go@v2
         with:
           go-version: "${{ env.go_version }}"
 
-      - run: go build -v ./...
+      - name: 🦺 Go Build
+        run: go build -v ./...
 
-      - run: go test -v ./...
+      - name: ⛑️ Go Test
+        run: go test -v ./...
 
   golangci:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v2
 
-      - uses: golangci/golangci-lint-action@v2
+      - name: ⚙️ Get Go version
+      - run: echo go_version="$(cat Dockerfile | grep 'FROM golang:' | grep -o -P '(?<=golang:).*(?=-alpine)')" >> $GITHUB_ENV
+
+      - name: 🥽 Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "${{ env.go_version }}"
+
+      - name: 📢 golangci-lint
+        uses: golangci/golangci-lint-action@v2
         with:
           version: latest
+          skip-go-installation: true
