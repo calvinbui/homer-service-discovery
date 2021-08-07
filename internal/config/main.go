@@ -45,5 +45,7 @@ func New() (Config, error) {
 		return Config{}, fmt.Errorf("Error getting Homer config: %w", err)
 	}
 
+	logger.Debug(fmt.Sprintf("%+v", conf))
+
 	return conf, nil
 }
