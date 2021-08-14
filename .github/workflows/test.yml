@@ -90,3 +90,23 @@ jobs:
           args: build --snapshot
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  nancy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v2
+
+      - name: ⚙️ Get Go version
+        run: echo go_version="$(cat Dockerfile | grep 'FROM golang:' | grep -o -P '(?<=golang:).*(?=-alpine)')" >> $GITHUB_ENV
+
+      - name: 🥽 Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "${{ env.go_version }}"
+
+      - name: 🧗 Create go.list
+        run: go list -json -m all > go.list
+
+      - name: 🐹 Nancy
+        uses: sonatype-nexus-community/nancy-github-action@main
