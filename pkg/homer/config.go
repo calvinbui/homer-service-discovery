@@ -7,8 +7,6 @@ import (
 
 	"github.com/calvinbui/homer-docker-service-discovery/internal/docker"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/logger"
-
-	"github.com/jinzhu/copier"
 )
 
 const (
@@ -103,14 +101,4 @@ func toIntOrZero(v string) int {
 		return 0
 	}
 	return i
-}
-
-// need a deep copy because of nested slices in the struct
-func (c Config) DeepCopy() (Config, error) {
-	deepCopy := Config{}
-	err := copier.CopyWithOption(&deepCopy, &c, copier.Option{DeepCopy: true})
-	if err != nil {
-		return Config{}, err
-	}
-	return deepCopy, nil
 }

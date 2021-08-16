@@ -75,12 +75,14 @@ func generateConfig(ctx context.Context, conf config.Config) error {
 		parsedContainers = append(parsedContainers, parsedContainer)
 	}
 
-	logger.Debug("Generating config")
-	baseConfig, err := conf.HomerBaseConfig.DeepCopy()
+	logger.Debug("Loading base config")
+	conf.HomerBaseConfig, err = homer.GetConfig(conf.HomerBaseConfigPath)
 	if err != nil {
-		logger.Fatal("Error creating a deep copy of the base config", err)
+		logger.Fatal("Error getting base config", err)
 	}
-	generatedConfig, err := homer.BuildConfig(baseConfig, parsedContainers)
+
+	logger.Debug("Generating config")
+	generatedConfig, err := homer.BuildConfig(conf.HomerBaseConfig, parsedContainers)
 	if err != nil {
 		logger.Fatal("Error building Homer config", err)
 	}
