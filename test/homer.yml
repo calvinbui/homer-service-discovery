@@ -1,6 +1,7 @@
 title: Services
 subtitle: All my stuff
 logo: logo.png
+header: false
 footer: false
 connectivityCheck: "false"
 services:
