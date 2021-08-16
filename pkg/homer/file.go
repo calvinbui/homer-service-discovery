@@ -10,7 +10,7 @@ import (
 )
 
 func GetConfig(path string) (Config, error) {
-	b, err := openConfig(path)
+	b, err := ioutil.ReadFile(path)
 	if err != nil {
 		return Config{}, err
 	}
@@ -23,25 +23,15 @@ func GetConfig(path string) (Config, error) {
 	return config, nil
 }
 
-func openConfig(path string) ([]byte, error) {
-	contents, err := ioutil.ReadFile(path)
-	if err != nil {
-		return nil, err
-	}
-
-	return contents, nil
-}
-
 func unmarshalConfig(contents []byte) (Config, error) {
 	config := Config{}
 
 	if len(contents) == 0 {
-		return Config{}, fmt.Errorf("Homer config is empty")
+		return config, fmt.Errorf("Homer config is empty")
 	}
 
-	err := yaml.Unmarshal(contents, &config)
-	if err != nil {
-		return Config{}, err
+	if err := yaml.Unmarshal(contents, &config); err != nil {
+		return config, err
 	}
 
 	// the footer can be disabled by changing it from a 'string' to a 'bool'

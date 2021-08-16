@@ -5,7 +5,6 @@ import (
 
 	"github.com/calvinbui/homer-docker-service-discovery/internal/docker"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/logger"
-	"github.com/calvinbui/homer-docker-service-discovery/pkg/homer"
 	"github.com/docker/docker/client"
 
 	"github.com/caarlos0/env/v6"
@@ -16,7 +15,6 @@ type Config struct {
 
 	LogLevel string `env:"LOG_LEVEL" envDefault:"Info"`
 
-	HomerBaseConfig     homer.Config
 	HomerBaseConfigPath string `env:"HOMER_BASE_CONFIG" envDefault:"/base.yml"`
 
 	HomerConfigPath string `env:"HOMER_CONFIG" envDefault:"/config.yml"`
@@ -38,11 +36,6 @@ func New() (Config, error) {
 	err = logger.SetLevel(conf.LogLevel)
 	if err != nil {
 		return Config{}, fmt.Errorf("Error setting log level: %w", err)
-	}
-
-	conf.HomerBaseConfig, err = homer.GetConfig(conf.HomerBaseConfigPath)
-	if err != nil {
-		return Config{}, fmt.Errorf("Error getting Homer config: %w", err)
 	}
 
 	logger.Debug(fmt.Sprintf("%+v", conf))

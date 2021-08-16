@@ -53,7 +53,8 @@ func BuildConfig(config Config, containers []docker.Container) (Config, error) {
 					Type:       container.GetLabelValueOrEmpty(TypeLabel),
 					Class:      container.GetLabelValueOrEmpty(ClassLabel),
 					Background: container.GetLabelValueOrEmpty(BackgroundLabel),
-					Priority:   toIntOrZero(container.GetLabelValueOrEmpty(PriorityLabel)),
+					// docker labels are strings but we want an int
+					Priority: toIntOrZero(container.GetLabelValueOrEmpty(PriorityLabel)),
 				})
 			} else {
 				logger.Warn(fmt.Sprintf("Container %s: No matching service found or label does not exist. Skipping", container.Name), nil)

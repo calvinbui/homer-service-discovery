@@ -79,13 +79,14 @@ func generateConfig(ctx context.Context, conf config.Config) error {
 	}
 
 	logger.Debug("Loading base config")
-	conf.HomerBaseConfig, err = homer.GetConfig(conf.HomerBaseConfigPath)
+	baseConfig, err := homer.GetConfig(conf.HomerBaseConfigPath)
 	if err != nil {
 		logger.Fatal("Error getting base config", err)
 	}
+	logger.Debug(fmt.Sprintf("Loaded base config: %+v", baseConfig))
 
 	logger.Debug("Generating config")
-	generatedConfig, err := homer.BuildConfig(conf.HomerBaseConfig, parsedContainers)
+	generatedConfig, err := homer.BuildConfig(baseConfig, parsedContainers)
 	if err != nil {
 		logger.Fatal("Error building Homer config", err)
 	}
