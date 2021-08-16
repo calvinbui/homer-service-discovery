@@ -30,6 +30,8 @@ services:
       - type: bind
         source: ./test/homer.yml
         target: /www/assets/config.yml
+    environment:
+      UID: "${USER}"
     logging:
       driver: none
     stop_grace_period: 1s
