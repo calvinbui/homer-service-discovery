@@ -43,7 +43,7 @@ func main() {
 			if event.Action == "create" || event.Action == "destroy" {
 				logger.Trace(fmt.Sprintf("%+v", event))
 				logger.Debug("A " + event.Action + " event occurred")
-				logger.Info("Change detected, generating Homer config...")
+				logger.Info(fmt.Sprintf("Change detected. %s was %s, generating Homer config...", event.From, event.Action))
 				err = generateConfig(ctx, conf)
 				if err != nil {
 					logger.Fatal("Error generating Homer config", err)
