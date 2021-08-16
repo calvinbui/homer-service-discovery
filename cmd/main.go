@@ -5,6 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strings"
+	"time"
 
 	"github.com/calvinbui/homer-docker-service-discovery/internal/config"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/docker"
@@ -43,6 +45,7 @@ func main() {
 			if event.Action == "start" || event.Action == "die" || strings.HasPrefix(event.Action, "health_status") {
 				logger.Trace(fmt.Sprintf("%+v", event))
 				logger.Debug("A " + event.Action + " event occurred")
+				logger.Info(fmt.Sprintf("Event '%s' received from %s. Generating Homer config...", event.Action, event.Actor.Attributes["name"]))
 				time.Sleep(1 * time.Second)
 				err = generateConfig(ctx, conf)
 				if err != nil {
