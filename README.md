@@ -43,8 +43,8 @@ services:
 
 Start Homer following [its instructions](https://github.com/bastienwirtz/homer/blob/main/README.md) to mount the `/www/assets` directory. This is where the `config.yaml` file resides.
 
-```console
-$ docker run -d \
+```bash
+docker run -d \
   -p 8080:8080 \
   -v /folder1/homer/:/www/assets \
   b4bz/homer:latest
@@ -56,9 +56,9 @@ Start this tool while:
 - mounting the Docker socket
 - using environment variables to provide their mountpoints.
 
-```console
-$ docker run -d \
-  -v /homer/config.yml:/config.yml \
+```bash
+docker run -d \
+  -v /folder1/homer/config.yml:/config.yml \
   -v /sd/base.yml:/base.yml \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
   ghcr.io/calvinbui/homer-service-discovery
@@ -70,8 +70,8 @@ You can visit your Homer Dashboard to see the initial generated config (remember
 
 Start adding labels to your containers to have this tool pick them up. For example, the following command will regenerate the config and add the `http-echo` service to the `Numbers` service.
 
-```console
-$ docker run -d \
+```bash
+docker run -d \
   -p 5678:5678 \
   -l homer.enable=true \
   -l homer.service=Numbers \
@@ -88,27 +88,27 @@ $ docker run -d \
 
 The full list of labels are:
 
-| Label | Description |
-| :- | :- |
-| `homer.enable` | Set to `true` include in Homer's config |
-| `homer.service` | The name of Homer Service to add this item to. It must exist in the base config |
-| `homer.priority` | The priority level of the service. The higher the number, the higher it appears in the Service |
-| `homer.name` | The item's name (See Homer's documentation) |
-| `homer.logo` | The item's logo (See Homer's documentation)|
-| `homer.icon` | The item's icon (See Homer's documentation) |
-| `homer.subtitle` | The item's subtitle (See Homer's documentation) |
-| `homer.tag` | The item's tag (See Homer's documentation) |
-| `homer.url` | The item's url (See Homer's documentation) |
-| `homer.target` | The item's target (See Homer's documentation) |
-| `homer.tagstyle` | The item's tagstyle (See Homer's documentation) |
-| `homer.type` | The item's type (See Homer's documentation) |
-| `homer.class` | The item's class (See Homer's documentation) |
-| `homer.background` | The item's background (See Homer's documentation) |
+| Label              | Description                                                                                    |
+|--------------------|------------------------------------------------------------------------------------------------|
+| `homer.enable`     | Set to `true` include in Homer's config                                                        |
+| `homer.service`    | The name of Homer Service to add this item to. It must exist in the base config                |
+| `homer.priority`   | The priority level of the service. The higher the number, the higher it appears in the Service |
+| `homer.name`       | The item's name (See Homer's documentation)                                                    |
+| `homer.logo`       | The item's logo (See Homer's documentation)                                                    |
+| `homer.icon`       | The item's icon (See Homer's documentation)                                                    |
+| `homer.subtitle`   | The item's subtitle (See Homer's documentation)                                                |
+| `homer.tag`        | The item's tag (See Homer's documentation)                                                     |
+| `homer.url`        | The item's url (See Homer's documentation)                                                     |
+| `homer.target`     | The item's target (See Homer's documentation)                                                  |
+| `homer.tagstyle`   | The item's tagstyle (See Homer's documentation)                                                |
+| `homer.type`       | The item's type (See Homer's documentation)                                                    |
+| `homer.class`      | The item's class (See Homer's documentation)                                                   |
+| `homer.background` | The item's background (See Homer's documentation)                                              |
 
 ## Environment Variables
 
-| Key | Description | Default |
-| :- | :- | :- |
-| `LOG_LEVEL` | The level of log verbosity | `Info` |
-| `HOMER_BASE_CONFIG` | Where the base config is located | `/base.yml` |
-| `HOMER_CONFIG` | Where the Homer config is located | `/config.yml` |
+| Key                 | Description                       | Default       |
+|---------------------|-----------------------------------|---------------|
+| `LOG_LEVEL`         | The level of log verbosity        | `Info`        |
+| `HOMER_BASE_CONFIG` | Where the base config is located  | `/base.yml`   |
+| `HOMER_CONFIG`      | Where the Homer config is located | `/config.yml` |
