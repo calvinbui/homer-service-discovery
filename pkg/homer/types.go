@@ -6,7 +6,7 @@ type Config struct {
 	Title             string      `yaml:"title,omitempty"`
 	Subtitle          string      `yaml:"subtitle,omitempty"`
 	Logo              string      `yaml:"logo,omitempty"`
-	Header            bool        `yaml:"header,omitempty"`
+	Header            bool        `yaml:"header"`
 	Footer            interface{} `yaml:"footer,omitempty"`
 	Columns           string      `yaml:"columns,omitempty"`
 	ConnectivityCheck string      `yaml:"connectivityCheck,omitempty"`
