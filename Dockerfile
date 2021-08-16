@@ -5,6 +5,6 @@ RUN \
   CGO_ENABLED=0 \
   go build -o main cmd/main.go
 
-FROM scratch
+FROM busybox:1.33.1
 COPY --from=builder /build/main /main
 ENTRYPOINT ["/main"]
