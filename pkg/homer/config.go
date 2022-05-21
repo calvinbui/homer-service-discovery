@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/calvinbui/homer-docker-service-discovery/internal/docker"
+	"github.com/calvinbui/homer-docker-service-discovery/internal/entry"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/logger"
 )
 
@@ -26,7 +26,7 @@ const (
 	PriorityLabel   = "homer.priority"
 )
 
-func BuildConfig(config Config, containers []docker.Container) (Config, error) {
+func BuildConfig(config Config, containers []entry.RawEntry) (Config, error) {
 	logger.Debug("Checking all container and their labels")
 	for _, container := range containers {
 		logger.Debug(fmt.Sprintf("Start checking Container %s", container.Name))
@@ -78,13 +78,13 @@ func BuildConfig(config Config, containers []docker.Container) (Config, error) {
 }
 
 // homerEnabled checks if the container has the enabled label and it is true
-func homerEnabled(c docker.Container) bool {
+func homerEnabled(c entry.RawEntry) bool {
 	value, ok := c.Labels[EnableLabel]
 	return ok && value == "true"
 }
 
 // findServiceFromLabel finds the service specified on the container's labels and returns its position
-func findServiceFromLabel(c docker.Container, services []Service) (int, bool) {
+func findServiceFromLabel(c entry.RawEntry, services []Service) (int, bool) {
 	if value, found := c.GetLabelValue(ServiceLabel); found {
 		for index, service := range services {
 			if service.Name == value {
