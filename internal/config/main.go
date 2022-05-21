@@ -23,6 +23,7 @@ type Config struct {
 
 	ServiceDiscovery string `env:"SERVICE_DISCOVERY" envDefault:"Docker"`
 	
+	ConsulHost string `env:"CONSUL_HOST" envDefault:"consul.service.consul:8500"`
 
 	LogLevel string `env:"LOG_LEVEL" envDefault:"Info"`
 
@@ -45,7 +46,7 @@ func New() (Config, error) {
 			return Config{}, fmt.Errorf("Error creating Docker client: %w", err)
 		}
 	} else if conf.ServiceDiscovery == Consul {
-		conf.Consul, err = consul.CreateClient()
+		conf.Consul, err = consul.CreateClient(conf.ConsulHost)
 		if err != nil {
 			return Config{}, fmt.Errorf("Error creating consul client: %w", err)
 		}
