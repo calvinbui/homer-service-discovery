@@ -1,11 +1,9 @@
 package entry
 
-
 type RawEntry struct {
 	Name   string
 	Labels map[string]string
 }
-
 
 func (c RawEntry) GetLabelValue(label string) (string, bool) {
 	value, ok := c.Labels[label]

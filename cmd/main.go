@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/calvinbui/homer-docker-service-discovery/internal/config"
+	"github.com/calvinbui/homer-docker-service-discovery/internal/consul"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/docker"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/entry"
-	"github.com/calvinbui/homer-docker-service-discovery/internal/consul"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/logger"
 	"github.com/calvinbui/homer-docker-service-discovery/pkg/homer"
 	"github.com/hashicorp/consul/api/watch"
@@ -68,22 +68,22 @@ func main() {
 				return
 			}
 		}
-	}else if conf.ServiceDiscovery == config.Consul {
+	} else if conf.ServiceDiscovery == config.Consul {
 		logger.Info("Start watching for consul services change")
-			hcLogger := hclog.New(&hclog.LoggerOptions{
+		hcLogger := hclog.New(&hclog.LoggerOptions{
 			Name:       "consulcatalog",
 			Level:      hclog.LevelFromString(conf.LogLevel),
 			JSONFormat: true,
 		})
-		for{
+		for {
 			watcher := consul.WatchServices(conf.Consul)
-			watcher.HybridHandler=func(_ watch.BlockingParamVal, _ interface{}) {
+			watcher.HybridHandler = func(_ watch.BlockingParamVal, _ interface{}) {
 				logger.Info("consul handler fired")
-				generateConfig(ctx,conf)
+				generateConfig(ctx, conf)
+			}
+			watcher.RunWithClientAndHclog(conf.Consul, hcLogger)
+			time.Sleep(1 * time.Second)
 		}
-		watcher.RunWithClientAndHclog(conf.Consul,hcLogger)
-		time.Sleep(1 * time.Second)
-	}
 	}
 }
 
@@ -103,16 +103,15 @@ func generateConfig(ctx context.Context, conf config.Config) error {
 			logger.Debug(fmt.Sprintf("Inspected container %s", parsedContainer.Name))
 			parsedEntry = append(parsedEntry, parsedContainer)
 		}
-	}else if conf.ServiceDiscovery == config.Consul {
+	} else if conf.ServiceDiscovery == config.Consul {
 		logger.Debug("Getting Consul service")
 		services := consul.ListServices(conf.Consul)
-		for name,label := range services {
+		for name, label := range services {
 
-				parsedService := consul.ParseService(name,label)
-				parsedEntry = append (parsedEntry,parsedService)
+			parsedService := consul.ParseService(name, label)
+			parsedEntry = append(parsedEntry, parsedService)
 		}
 	}
-	
 
 	logger.Debug("Loading base config")
 	baseConfig, err := homer.GetConfig(conf.HomerBaseConfigPath)

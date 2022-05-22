@@ -22,7 +22,7 @@ type Config struct {
 	Consul *api.Client
 
 	ServiceDiscovery string `env:"SERVICE_DISCOVERY" envDefault:"Docker"`
-	
+
 	ConsulHost string `env:"CONSUL_HOST" envDefault:"consul.service.consul:8500"`
 
 	LogLevel string `env:"LOG_LEVEL" envDefault:"Info"`
@@ -50,8 +50,8 @@ func New() (Config, error) {
 		if err != nil {
 			return Config{}, fmt.Errorf("Error creating consul client: %w", err)
 		}
-	}else{
-			return Config{}, fmt.Errorf("unknow Service Discovery in configuration")
+	} else {
+		return Config{}, fmt.Errorf("unknow Service Discovery in configuration")
 	}
 	err = logger.SetLevel(conf.LogLevel)
 	if err != nil {

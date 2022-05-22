@@ -8,6 +8,7 @@ require (
 	github.com/docker/docker v20.10.6+incompatible
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/hashicorp/consul/api v1.12.0
+	github.com/hashicorp/go-hclog v0.12.0 // indirect
 	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/rs/zerolog v1.23.0
 	github.com/sirupsen/logrus v1.8.1 // indirect
