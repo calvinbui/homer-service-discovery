@@ -48,10 +48,10 @@ func New() (Config, error) {
 	} else if conf.ServiceDiscovery == Consul {
 		conf.Consul, err = consul.CreateClient(conf.ConsulHost)
 		if err != nil {
-			return Config{}, fmt.Errorf("Error creating consul client: %w", err)
+			return Config{}, fmt.Errorf("Error creating Consul client: %w", err)
 		}
 	} else {
-		return Config{}, fmt.Errorf("unknow Service Discovery in configuration")
+		return Config{}, fmt.Errorf("Unknow Service Discovery in configuration")
 	}
 	err = logger.SetLevel(conf.LogLevel)
 	if err != nil {

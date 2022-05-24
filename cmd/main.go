@@ -69,7 +69,7 @@ func main() {
 			}
 		}
 	} else if conf.ServiceDiscovery == config.Consul {
-		logger.Info("Start watching for consul services change")
+		logger.Info("Start watching for Consul services change")
 		hcLogger := hclog.New(&hclog.LoggerOptions{
 			Name:       "consulcatalog",
 			Level:      hclog.LevelFromString(conf.LogLevel),
@@ -78,7 +78,7 @@ func main() {
 		for {
 			watcher := consul.WatchServices(conf.Consul)
 			watcher.HybridHandler = func(_ watch.BlockingParamVal, _ interface{}) {
-				logger.Info("consul handler fired")
+				logger.Info("Consul handler fired")
 				generateConfig(ctx, conf)
 			}
 			watcher.RunWithClientAndHclog(conf.Consul, hcLogger)

@@ -7,7 +7,6 @@ import (
 )
 
 func ListServices(consul *api.Client) map[string][]string {
-
 	catalog := consul.Catalog()
 	q := &api.QueryOptions{}
 	services, _, _ := catalog.Services(q)
