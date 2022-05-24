@@ -108,10 +108,10 @@ The full list of labels are:
 
 ## Environment Variables
 
-| Key                 | Description                       | Default       |
-|---------------------|-----------------------------------|---------------|
-| `LOG_LEVEL`         | The level of log verbosity        | `Info`        |
-| `HOMER_BASE_CONFIG` | Where the base config is located  | `/base.yml`   |
-| `HOMER_CONFIG`      | Where the Homer config is located | `/config.yml` |
-| `SERVICE_DISCOVERY` | Select between consul or docker   | `Docker`      |
-| `CONSUL_HOST`       | Host for consul conenction        | `consul.service.consul:8500` |
+| Key                 | Description                       | Default                      |
+|---------------------|-----------------------------------|------------------------------|
+| `LOG_LEVEL`         | The level of log verbosity        | `Info`                       |
+| `HOMER_BASE_CONFIG` | Where the base config is located  | `/base.yml`                  |
+| `HOMER_CONFIG`      | Where the Homer config is located | `/config.yml`                |
+| `SERVICE_DISCOVERY` | Select between consul or docker   | `Docker`                     |
+| `CONSUL_HOST`       | Host for consul conenction        | `127.0.0.1:8500` |

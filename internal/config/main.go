@@ -23,7 +23,7 @@ type Config struct {
 
 	ServiceDiscovery string `env:"SERVICE_DISCOVERY" envDefault:"Docker"`
 
-	ConsulHost string `env:"CONSUL_HOST" envDefault:"consul.service.consul:8500"`
+	ConsulHost string `env:"CONSUL_HOST" envDefault:"127.0.0.1:8500"`
 
 	LogLevel string `env:"LOG_LEVEL" envDefault:"Info"`
 
