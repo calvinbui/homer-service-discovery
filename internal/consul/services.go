@@ -18,7 +18,7 @@ func ParseService(name string, labels []string) entry.RawEntry {
 		Name: name,
 	}
 	s.Labels = make(map[string]string)
-	if labels != nil && len(labels) > 0 {
+	if len(labels) > 0 {
 		for _, label := range labels {
 			splitedLabel := strings.Split(label, "=")
 			if len(splitedLabel) > 1 {

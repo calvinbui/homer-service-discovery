@@ -79,15 +79,15 @@ func main() {
 			watcher := consul.WatchServices(conf.Consul)
 			watcher.HybridHandler = func(_ watch.BlockingParamVal, _ interface{}) {
 				logger.Info("Consul handler fired")
-				generateConfig(ctx, conf)
+				err=generateConfig(ctx, conf)
 			}
-			watcher.RunWithClientAndHclog(conf.Consul, hcLogger)
+			err=watcher.RunWithClientAndHclog(conf.Consul, hcLogger)
 			time.Sleep(1 * time.Second)
 		}
 	}
 }
 
-func generateConfig(ctx context.Context, conf config.Config) error {
+func generateConfig(ctx context.Context, conf config.Config) error{
 	var parsedEntry []entry.RawEntry
 	if conf.ServiceDiscovery == config.Docker {
 		logger.Debug("Getting Docker containers")
