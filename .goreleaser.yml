@@ -19,7 +19,7 @@ builds:
       - arm
       - arm64
     goarm:
-      - 7
+      - "7"
 
 dockers:
   - image_templates:
