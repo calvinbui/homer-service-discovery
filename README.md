@@ -2,11 +2,11 @@
 
 This tool generates configuration files for [Homer](https://github.com/bastienwirtz/homer) using Docker container labels.
 
-Using Docker container labels for service discovery is inspired by the same approach used by [Traefik](https://doc.traefik.io/traefik/providers/docker/) and [Watchtower](https://github.com/containrrr/watchtower).
+Using Docker container or Consul catalog labels for service discovery is inspired by the same approach used by [Traefik](https://doc.traefik.io/traefik/providers/docker/) and [Watchtower](https://github.com/containrrr/watchtower).
 ## Features
 
 - Generates Homer config using container labels
-- Watches for container changes
+- Watches for container changes or Consul changes
 - Sort items by priority
 - Multi-arch
 
@@ -107,8 +107,10 @@ The full list of labels are:
 
 ## Environment Variables
 
-| Key                 | Description                       | Default       |
-|---------------------|-----------------------------------|---------------|
-| `LOG_LEVEL`         | The level of log verbosity        | `Info`        |
-| `HOMER_BASE_CONFIG` | Where the base config is located  | `/base.yml`   |
-| `HOMER_CONFIG`      | Where the Homer config is located | `/config.yml` |
+| Key                 | Description                       | Default                      |
+|---------------------|-----------------------------------|------------------------------|
+| `LOG_LEVEL`         | The level of log verbosity        | `Info`                       |
+| `HOMER_BASE_CONFIG` | Where the base config is located  | `/base.yml`                  |
+| `HOMER_CONFIG`      | Where the Homer config is located | `/config.yml`                |
+| `SERVICE_DISCOVERY` | Select between Consul or docker   | `Docker`                     |
+| `CONSUL_HOST`       | Host for Consul conenction        | `127.0.0.1:8500` |

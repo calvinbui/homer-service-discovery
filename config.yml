@@ -1,0 +1,23 @@
+title: My Self Hosted Kingdom
+subtitle: Enter!
+header: false
+services:
+    - name: Numbers
+      icon: fas fa-list-ol
+      items:
+        - name: "4"
+          icon: fas fa-dice-four
+          url: https://fontawesome.com/v5.15/icons/dice-four?style=solid
+          priority: 4
+        - name: "3"
+          icon: fab fa-html5
+          url: https://fontawesome.com/v5.15/icons/html5?style=brands
+          priority: 3
+        - name: "1"
+          icon: far fa-money-bill-alt
+          url: https://fontawesome.com/v5.15/icons/money-bill-alt?style=regular
+          priority: 1
+        - name: 'home '
+        - name: gitea
+    - name: Letters
+      icon: fas fa-sun
