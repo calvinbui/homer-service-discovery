@@ -11,6 +11,9 @@ services:
       LOG_LEVEL: Debug
       HOMER_BASE_CONFIG: /base.yml
       HOMER_CONFIG: /homer.yml
+      SERVICE_DISCOVERY: Docker
+      # SERVICE_DISCOVERY: Consul
+      # CONSUL_HOST: consul:8500
     volumes:
       - type: bind
         source: ./test/base.yml
@@ -53,3 +56,10 @@ services:
     logging:
       driver: none
     stop_grace_period: 1s
+
+  consul:
+    image: consul:latest
+    volumes:
+      - type: bind
+        source: ./test/consul.json
+        target: /consul/config/test.json
