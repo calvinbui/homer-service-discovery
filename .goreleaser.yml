@@ -44,7 +44,7 @@ dockers:
     use: buildx
     dockerfile: Dockerfile.goreleaser
     build_flag_templates:
-      - "--platform=linux/arm64/v8"
+      - "--platform=linux/arm64"
 
   - image_templates:
       - "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}-arm32v7"
@@ -104,3 +104,7 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+
+signs:
+  - artifacts: checksum
+    args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
