@@ -18,7 +18,7 @@
 ### Go Patch ###
 /vendor/
 /Godeps/
-
 dist/
 
-dist/
+# artifacts
+main
