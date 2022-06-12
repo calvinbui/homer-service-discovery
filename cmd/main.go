@@ -78,7 +78,7 @@ func main() {
 		for {
 			watcher := consul.WatchServices(conf.Consul)
 			watcher.HybridHandler = func(_ watch.BlockingParamVal, _ interface{}) {
-				logger.Info("Consul handler fired")
+				logger.Debug("Consul handler fired")
 				err = generateConfig(ctx, conf)
 			}
 			err = watcher.RunWithClientAndHclog(conf.Consul, hcLogger)
