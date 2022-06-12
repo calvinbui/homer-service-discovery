@@ -33,6 +33,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
+      - name: 🧱 go fmt
+        run: test -z $(go fmt ./...)
+
       - name: 🦺 Go Build
         run: go build -v ./...
 

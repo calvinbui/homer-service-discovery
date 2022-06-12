@@ -1,0 +1,10 @@
+{
+  "service": {
+    "name": "test",
+    "tags": [
+      "homer.enable=true",
+      "homer.name=test",
+      "homer.service=Numbers"
+    ]
+  }
+}
