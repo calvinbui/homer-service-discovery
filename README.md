@@ -113,4 +113,4 @@ The full list of labels are:
 | `HOMER_BASE_CONFIG` | Where the base config is located  | `/base.yml`                  |
 | `HOMER_CONFIG`      | Where the Homer config is located | `/config.yml`                |
 | `SERVICE_DISCOVERY` | Select between Consul or docker   | `Docker`                     |
-| `CONSUL_HOST`       | Host for Consul conenction        | `127.0.0.1:8500` |
+| `CONSUL_HOST`       | Host for Consul conenction        | `127.0.0.1:8500`             |
