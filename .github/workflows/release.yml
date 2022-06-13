@@ -33,6 +33,7 @@ jobs:
         with:
           go-version: "${{ env.go_version }}"
           cache: true
+          check-latest: true
 
       - name: 🌐 Set up QEMU
         uses: docker/setup-qemu-action@v2

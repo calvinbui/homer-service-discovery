@@ -23,6 +23,7 @@ jobs:
         with:
           go-version: "${{ env.go_version }}"
           cache: true
+          check-latest: true
 
       - name: 🧱 go fmt
         run: test -z $(go fmt ./...)
@@ -47,6 +48,7 @@ jobs:
         with:
           go-version: "${{ env.go_version }}"
           cache: true
+          check-latest: true
 
       - name: 📢 golangci-lint
         uses: golangci/golangci-lint-action@v2
@@ -68,6 +70,7 @@ jobs:
         with:
           go-version: "${{ env.go_version }}"
           cache: true
+          check-latest: true
 
       - name: 📜 Check
         uses: goreleaser/goreleaser-action@v3
