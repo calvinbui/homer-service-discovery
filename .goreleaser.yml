@@ -29,7 +29,7 @@ dockers:
       - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-amd64"
     goos: linux
     goarch: amd64
-    use: docker
+    use: buildx
     dockerfile: Dockerfile.goreleaser
     build_flag_templates:
       - "--platform=linux/amd64"
@@ -41,7 +41,7 @@ dockers:
       - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm64v8"
     goos: linux
     goarch: arm64
-    use: docker
+    use: buildx
     dockerfile: Dockerfile.goreleaser
     build_flag_templates:
       - "--platform=linux/arm64"
@@ -54,7 +54,7 @@ dockers:
     goos: linux
     goarch: arm
     goarm: 7
-    use: docker
+    use: buildx
     dockerfile: Dockerfile.goreleaser
     build_flag_templates:
       - "--platform=linux/arm/v7"

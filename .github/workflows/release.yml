@@ -43,16 +43,6 @@ jobs:
           buildkitd-flags: --debug
           install: true
 
-      - name: 🧯 Enable Docker experimental features
-        run: |
-          echo $'{\n  "experimental": true\n}' | sudo tee /etc/docker/daemon.json
-          mkdir -p ~/.docker
-          echo $'{\n  "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json
-          sudo service docker restart
-          docker version -f '{{.Client.Experimental}}'
-          docker version -f '{{.Server.Experimental}}'
-          docker buildx version
-
       - name: 🚉 Inspect Docker builder
         run: |
           echo "Name:      ${{ steps.buildx.outputs.name }}"
