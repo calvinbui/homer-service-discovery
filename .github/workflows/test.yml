@@ -22,8 +22,6 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: "${{ env.go_version }}"
-          cache: true
-          check-latest: true
 
       - name: 🧱 go fmt
         run: test -z $(go fmt ./...)
@@ -47,8 +45,6 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: "${{ env.go_version }}"
-          cache: true
-          check-latest: true
 
       - name: 📢 golangci-lint
         uses: golangci/golangci-lint-action@v2
@@ -69,8 +65,6 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: "${{ env.go_version }}"
-          cache: true
-          check-latest: true
 
       - name: 📜 Check
         uses: goreleaser/goreleaser-action@v3
