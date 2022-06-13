@@ -57,7 +57,7 @@ dockers:
     use: buildx
     dockerfile: Dockerfile.goreleaser
     build_flag_templates:
-      - "--platform=linux/arm"
+      - "--platform=linux/arm/v7"
 
 docker_manifests:
   - name_template: "ghcr.io/calvinbui/{{ .ProjectName }}:{{ .Tag }}"
