@@ -67,6 +67,7 @@ jobs:
         uses: actions/setup-go@v3
         with:
           go-version: "${{ env.go_version }}"
+          cache: true
 
       - name: 📜 Check
         uses: goreleaser/goreleaser-action@v3
