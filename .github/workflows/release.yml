@@ -52,7 +52,7 @@ jobs:
           docker version -f '{{.Server.Experimental}}'
           docker buildx version
 
-        name: 🚉 Inspect Docker builder
+      - name: 🚉 Inspect Docker builder
         run: |
           echo "Name:      ${{ steps.buildx.outputs.name }}"
           echo "Endpoint:  ${{ steps.buildx.outputs.endpoint }}"
