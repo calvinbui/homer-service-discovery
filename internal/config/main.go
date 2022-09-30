@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+
 	"github.com/calvinbui/homer-docker-service-discovery/internal/consul"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/docker"
 	"github.com/calvinbui/homer-docker-service-discovery/internal/logger"
@@ -30,6 +31,8 @@ type Config struct {
 	HomerBaseConfigPath string `env:"HOMER_BASE_CONFIG" envDefault:"/base.yml"`
 
 	HomerConfigPath string `env:"HOMER_CONFIG" envDefault:"/config.yml"`
+
+	HomerDockerSwarmMode bool `env:"HOMER_DOCKER_SWARM" envDefault:"false"`
 }
 
 func New() (Config, error) {

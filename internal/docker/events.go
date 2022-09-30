@@ -9,9 +9,13 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func WatchEvents(ctx context.Context, docker client.APIClient) (<-chan events.Message, <-chan error) {
+func WatchEvents(ctx context.Context, docker client.APIClient, swarmMode bool) (<-chan events.Message, <-chan error) {
 	f := filters.NewArgs()
 	f.Add("type", "container")
+
+	if swarmMode {
+		f.Add("type", "service")
+	}
 
 	return docker.Events(ctx, types.EventsOptions{Filters: f})
 }
