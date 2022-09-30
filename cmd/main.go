@@ -46,11 +46,15 @@ func main() {
 
 	if conf.ServiceDiscovery == config.Docker {
 		logger.Info("Start watching for container creations and deletions")
-		eventsc, errc := docker.WatchEvents(ctx, conf.Docker)
+		if conf.HomerDockerSwarmMode {
+			logger.Info("Docker Swarm mode enabled")
+			logger.Info("Start watching for service creations, updates, and removal")
+		}
+		eventsc, errc := docker.WatchEvents(ctx, conf.Docker, conf.HomerDockerSwarmMode)
 		for {
 			select {
 			case event := <-eventsc:
-				if event.Action == "start" || event.Action == "die" || strings.HasPrefix(event.Action, "health_status") {
+				if event.Action == "start" || event.Action == "die" || strings.HasPrefix(event.Action, "health_status") || (event.Type == "service" && (event.Action == "create" || event.Action == "update" || event.Action == "remove")) {
 					logger.Trace(fmt.Sprintf("%+v", event))
 					logger.Debug("A " + event.Action + " event occurred")
 					logger.Info(fmt.Sprintf("Event '%s' received from %s. Generating Homer config...", event.Action, event.Actor.Attributes["name"]))
@@ -102,6 +106,21 @@ func generateConfig(ctx context.Context, conf config.Config) error {
 			}
 			logger.Debug(fmt.Sprintf("Inspected container %s", parsedContainer.Name))
 			parsedEntry = append(parsedEntry, parsedContainer)
+		}
+
+		if conf.HomerDockerSwarmMode {
+			logger.Debug("Getting Docker services")
+			services, err := docker.ListRunningServices(ctx, conf.Docker)
+			if err != nil {
+				logger.Fatal("Failed to list swarm services for Docker", err)
+			}
+			for _, service := range services {
+				parsedService, err := docker.ParseService(ctx, conf.Docker, service)
+				if err != nil {
+					logger.Error(fmt.Sprintf("Failed to inspect service %s", service.Spec.Name), err)
+				}
+				parsedEntry = append(parsedEntry, parsedService)
+			}
 		}
 	} else if conf.ServiceDiscovery == config.Consul {
 		logger.Debug("Getting Consul service")
