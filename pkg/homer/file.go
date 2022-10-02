@@ -2,7 +2,6 @@ package homer
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"syscall"
 
@@ -10,14 +9,14 @@ import (
 )
 
 func GetConfig(path string) (Config, error) {
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		return Config{}, err
 	}
 
 	config, err := unmarshalConfig(b)
 	if err != nil {
-		return Config{}, fmt.Errorf("Error unmarshalling config file: %w", err)
+		return Config{}, fmt.Errorf("error unmarshalling config file: %w", err)
 	}
 
 	return config, nil
@@ -27,7 +26,7 @@ func unmarshalConfig(contents []byte) (Config, error) {
 	config := Config{}
 
 	if len(contents) == 0 {
-		return config, fmt.Errorf("Homer config is empty")
+		return config, fmt.Errorf("homer config is empty")
 	}
 
 	if err := yaml.Unmarshal(contents, &config); err != nil {
@@ -45,17 +44,17 @@ func unmarshalConfig(contents []byte) (Config, error) {
 func PutConfig(config Config, path string, permissions string) error {
 	b, err := yaml.Marshal(config)
 	if err != nil {
-		return fmt.Errorf("Error marshalling data into YAML: %w", err)
+		return fmt.Errorf("error marshalling data into YAML: %w", err)
 	}
 
 	fileStats, err := os.Stat(path)
 	if err != nil {
-		return fmt.Errorf("Error getting stats for config file '%s': %w", path, err)
+		return fmt.Errorf("error getting stats for config file '%s': %w", path, err)
 	}
 
-	err = ioutil.WriteFile(path, b, fileStats.Mode())
+	err = os.WriteFile(path, b, fileStats.Mode())
 	if err != nil {
-		return fmt.Errorf("Error writing data to config file '%s'", path)
+		return fmt.Errorf("error writing data to config file '%s'", path)
 	}
 
 	fileSysStats := fileStats.Sys().(*syscall.Stat_t)
@@ -63,7 +62,7 @@ func PutConfig(config Config, path string, permissions string) error {
 	gid := int(fileSysStats.Gid)
 	err = os.Chown(path, uid, gid)
 	if err != nil {
-		return fmt.Errorf("Error chowning config '%s' with user '%v' and group '%v': %w", path, uid, gid, err)
+		return fmt.Errorf("error chowning config '%s' with user '%v' and group '%v': %w", path, uid, gid, err)
 	}
 
 	return nil
