@@ -3,7 +3,7 @@ module github.com/calvinbui/homer-docker-service-discovery
 go 1.19
 
 require (
-	github.com/caarlos0/env/v6 v6.6.0
+	github.com/caarlos0/env/v6 v6.10.1
 	github.com/docker/docker v20.10.6+incompatible
 	github.com/hashicorp/consul/api v1.12.0
 	github.com/hashicorp/go-hclog v0.12.0
