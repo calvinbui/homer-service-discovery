@@ -7,6 +7,7 @@ Using Docker container or Consul catalog labels for service discovery is inspire
 
 - Generates Homer config using container labels
 - Watches for container changes or Consul changes
+- Supports standalone Docker and Docker Swarm
 - Sort items by priority
 - Multi-arch
 
