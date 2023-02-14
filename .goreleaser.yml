@@ -85,7 +85,9 @@ docker_manifests:
       - "ghcr.io/calvinbui/{{ .ProjectName }}:v{{ .Major }}.{{ .Minor }}-arm32v7"
 
 archives:
-  - replacements:
+  -
+    name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
+    replacements:
       darwin: Darwin
       linux: Linux
       windows: Windows
