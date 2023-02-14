@@ -5,7 +5,10 @@ import (
 )
 
 func CreateClient() (*client.Client, error) {
-	client, err := client.NewClientWithOpts(client.FromEnv)
+	client, err := client.NewClientWithOpts(
+		client.FromEnv,
+		client.WithAPIVersionNegotiation(),
+	)
 
 	if err != nil {
 		return nil, err
