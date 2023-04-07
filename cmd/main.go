@@ -53,7 +53,11 @@ func main() {
 		eventsc, errc := docker.WatchEvents(ctx, conf.Docker, conf.HomerDockerSwarmMode)
 		for {
 			select {
-			case event := <-eventsc:
+			case event, ok := <-eventsc:
+				if !ok {
+					logger.Fatal("Error from Docker events", nil)
+				}
+
 				if event.Action == "start" || event.Action == "die" || strings.HasPrefix(event.Action, "health_status") || (event.Type == "service" && (event.Action == "create" || event.Action == "update" || event.Action == "remove")) {
 					logger.Trace(fmt.Sprintf("%+v", event))
 					logger.Debug("A " + event.Action + " event occurred")
@@ -67,7 +71,8 @@ func main() {
 			case err := <-errc:
 				if errors.Is(err, io.EOF) {
 					logger.Debug("Provider event stream closed")
-					return
+				} else {
+					logger.Fatal("Error watching Docker events", err)
 				}
 			case <-ctx.Done():
 				return
