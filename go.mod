@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/caarlos0/env/v6 v6.10.1
-	github.com/docker/docker v23.0.1+incompatible
+	github.com/docker/docker v23.0.3+incompatible
 	github.com/hashicorp/consul/api v1.18.0
 	github.com/hashicorp/go-hclog v1.4.0
 	github.com/rs/zerolog v1.29.0
