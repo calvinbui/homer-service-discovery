@@ -67,6 +67,7 @@ func main() {
 			case err := <-errc:
 				if errors.Is(err, io.EOF) {
 					logger.Debug("Provider event stream closed")
+					return
 				}
 			case <-ctx.Done():
 				return
